@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ciphers</title>
+    <link rel="stylesheet" type="text/css" href="./css/bulma.css" />
+  </head>
+
+  <body>
+    <!--title & subtitle-->
+    <div class="section">
+      <div class="container">
+        <h1 class="title">Cipher Algorithms</h1>
+        <h3 class="subtitle">Select an algorithm below to continue</h3>
+      </div>
+    </div>
+
+    <!--algorithm cards-->
+    <div class="section">
+      <div class="container">
+        <div class="columns is-multiline">
+          <div class="column is-one-third-tablet is-one-third-desktop">
+            <a
+              class="box"
+              style="background: linear-gradient(to right, #ffe259, #ffa751)"
+              href="./caesar.html"
+            >
+              <p class="has-text-weight-semibold">Caesar cipher</p>
+            </a>
+          </div>
+
+          <div class="column is-one-third-tablet is-one-third-desktop">
+            <a
+              class="box"
+              style="background: linear-gradient(to left, #7f7fd5, #86a8e7, #91eae4)"
+              href="./playfair.html"
+            >
+              <p class="has-text-weight-semibold">Playfair cipher</p>
+            </a>
+          </div>
+
+          <div class="column is-one-third-tablet is-one-third-desktop">
+            <a
+              class="box"
+              style="background: linear-gradient(to left, #11998e, #38ef7d);"
+              href="./des.html"
+            >
+              <p class="has-text-weight-semibold">DES cipher</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="section">
+      <div class="container">
+        <h3 class="is-size-5 has-text-centered">
+          Project made by: Simanta Ray (GAU-C-17/063)
+        </h3>
+
+        <div class="is-size-7 has-text-centered">
+          <p class="has-text-weight-bold">Open Source libraries used:</p>
+          <p>
+            <a href="https://github.com/jgthms/bulma">Bulma</a> CSS for styling
+          </p>
+          <p>
+            <a href="https://github.com/brix/crypto-js">crypto-js</a> for DES
+            implementation
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

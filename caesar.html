@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Caesar Cipher</title>
+    <link rel="stylesheet" type="text/css" href="./css/bulma.css" />
+  </head>
+
+  <body>
+    <!--title & subtitle-->
+    <div
+      class="section"
+      style="padding-bottom: 20px;background: linear-gradient(to right, #ffe259, #ffa751)"
+    >
+      <div class="container">
+        <a class="is-size-3" href="./index.html">
+          &#8678; Home
+        </a>
+        <h1 class="title">Caesar Cipher algorithm</h1>
+      </div>
+    </div>
+
+    <div class="section" style="padding-bottom: 0px;">
+      <div class="container">
+        <h3 class="subtitle">Encryption:</h3>
+
+        <div class="columns">
+          <div class="column">
+            <textarea
+              class="textarea is-primary"
+              type="text"
+              id="input"
+              placeholder="planetext"
+            ></textarea>
+          </div>
+
+          <div class="column" style="text-align: center;">
+            <input class="input" type="number" id="key" placeholder="key" />
+            <br /><br />
+            <button class="button is-primary" onclick="fn1()" id="b1">
+              Encrypt
+            </button>
+          </div>
+
+          <div class="column">
+            <output class="textarea is-primary" id="output1"> </output>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="section" style="padding-top: 0px;">
+      <div class="container">
+        <h3 class="subtitle">Decryption:</h3>
+
+        <div class="columns">
+          <div class="column">
+            <textarea
+              class="textarea is-primary"
+              type="text"
+              id="input2"
+              placeholder="ciphertext"
+            ></textarea>
+          </div>
+
+          <div class="column" style="text-align: center;">
+            <input class="input" type="number" id="key2" placeholder="key" />
+            <br /><br />
+            <button class="button is-primary" onclick="fn2()" id="b2">
+              Decrypt
+            </button>
+          </div>
+
+          <div class="column">
+            <p class="textarea is-primary" id="out2"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      //function1 (cce)
+      function fn1() {
+        var i;
+        var x;
+        var n;
+        var str1 = "";
+        var str = document.getElementById("input").value;
+        var key = parseInt(document.getElementById("key").value);
+        for (i = 0; i < str.length; i++) {
+          var c = str[i];
+          var n = parseInt(str.charCodeAt(i));
+
+          if (n >= 97) {
+            var p = String.fromCharCode(((n - 97 + key) % 26) + 97);
+            /*m =n-97;
+          m=(m+key)%26;
+          x=m+97;
+          var p=String.fromCharCode(x);*/
+          } else if (n >= 65 && n <= 90) {
+            var p = String.fromCharCode(((n - 65 + key) % 26) + 65);
+            /* m=n-65;
+             m=(m+key)%26;
+             y=m+65;
+             var p=String.fromCharCode(x);
+             */
+          } else {
+            var p = String.fromCharCode(n);
+          }
+          str1 += p + "";
+        }
+        document.getElementById("output1").innerHTML = str1;
+      } //end of fn1
+
+      function fn2() {
+        var i;
+        var x;
+        var n;
+        var str1 = "";
+        var str = document.getElementById("input2").value;
+        var key = parseInt(document.getElementById("key2").value);
+        for (i = 0; i < str.length; i++) {
+          var c = str[i];
+          var n = parseInt(str.charCodeAt(i));
+
+          if (n >= 97) {
+            m = n - 97;
+            m = (m - key) % 26;
+            if (m < 0) x = 26 + m + 97;
+            else x = m + 97;
+
+            var p = String.fromCharCode(x);
+          } else if (n >= 65 && n <= 90) {
+            m = n - 65;
+            m = (m - key) % 26;
+            if (m < 0) y = 26 + m + 65;
+            else y = m + 65;
+            var p = String.fromCharCode(y);
+          } else {
+            var p = String.fromCharCode(n);
+          }
+          str1 += p + "";
+        }
+        document.getElementById("out2").innerHTML = str1;
+      }
+    </script>
+  </body>
+</html>

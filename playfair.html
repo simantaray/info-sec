@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playfair Cipher</title>
+    <link rel="stylesheet" type="text/css" href="./css/bulma.css" />
+  </head>
+
+  <body>
+    <!--title & subtitle-->
+    <div
+      class="section"
+      style="padding-bottom: 20px; background: linear-gradient(to left, #7f7fd5, #86a8e7, #91eae4)"
+    >
+      <div class="container">
+        <a class="is-size-3" href="./index.html">
+          &#8678; Home
+        </a>
+        <h1 class="title">Playfair Cipher Algorithm</h1>
+      </div>
+    </div>
+
+    <div class="section" style="padding-bottom: 0px;">
+      <div class="container">
+        <h3 class="subtitle">Encryption:</h3>
+
+        <div class="columns">
+          <div class="column">
+            <textarea
+              class="textarea is-primary"
+              type="text"
+              id="input3"
+              placeholder="Plaintext"
+            ></textarea>
+          </div>
+
+          <div class="column" style="text-align: center;">
+            <input class="input" type="text" id="key3" placeholder="keyword" />
+            <br /><br />
+            <button class="button is-primary" onclick="fn3()" id="b3">
+              Encrypt
+            </button>
+          </div>
+
+          <div class="column">
+            <output class="textarea is-primary" id="output4"> </output>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="container">
+      <p>Matrix :</p>
+      <output class="text" id="output3"></output>
+    </div>
+
+    <hr />
+
+    <div class="section" style="padding-top: 0px;">
+      <div class="container">
+        <h3 class="subtitle">Decryption:</h3>
+
+        <div class="columns">
+          <div class="column">
+            <button class="button is-primary" onclick="fn4()" id="b3">
+              Decrypt
+            </button>
+          </div>
+          <div class="column">
+            <output class="textarea is-primary" id="output5"></output>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      //function1 (play fair)
+
+      function fn3() {
+        // keyword
+        var str = document.getElementById("input3").value;
+        var key = document.getElementById("key3").value;
+        var cipher = "";
+        key = key
+          .toLowerCase()
+          .replace(/j/g, "i")
+          .replace(/\s/g, "");
+        var temp = "";
+        var alp = "abcdefghiklmnopqrstuvwxyz";
+        key = key + alp;
+        for (i = 0; i < key.length; i++) {
+          if (key.indexOf(key[i]) !== i) {
+            key = key.slice(0, i) + key.slice(i + 1);
+            i--;
+            /* alp=alp.replace(key[i],'');
+          temp+= key[i];*/
+          }
+        }
+
+        /*temp += alp;
+      var result =[];
+      temp = temp.split('');
+      while(temp[0]){
+          result.push(temp.splice(0,5));
+      }
+    */
+
+        //str1 +=k + "";
+        document.getElementById("output3").innerHTML = key; //printing the matrix
+
+        //Encript
+
+        str = str
+          .toLowerCase()
+          .replace(/j/g, "i")
+          .replace(/\s/g, "");
+        if (str.length % 2 === 1) str += "x";
+
+        for (i = 0; i < str.length; i += 2) {
+          var i1, i2, j1, j2;
+          i1 = (key.indexOf(str[i]) / 5) | 0;
+          j1 = key.indexOf(str[i]) % 5;
+          i2 = (key.indexOf(str[i + 1]) / 5) | 0;
+          j2 = key.indexOf(str[i + 1]) % 5;
+          //same row
+          if (i1 == i2)
+            cipher +=
+              key[i1 * 5 + ((j1 + 1) % 5)] + key[i2 * 5 + ((j2 + 1) % 5)];
+          //  cipher += key[ i5 * 5 + (j1 + 1 ) % 5] + key[ i2 * 5 + ( j2 + 1 ) % 5];
+          //cipher += key[6]+key[7];
+          //same colom
+          else if (j1 == j2)
+            cipher =
+              cipher +
+              key[((i1 + 1) % 5) * 5 + j1] +
+              key[((i2 + 1) % 5) * 5 + j2];
+          //x hua
+          else cipher = cipher + key[i1 * 5 + j2] + key[i2 * 5 + j1];
+        }
+
+        document.getElementById("output4").innerHTML = cipher;
+      }
+
+      //decrypt
+      function fn4() {
+        var cipher = document.getElementById("output4").value;
+        var key = document.getElementById("output3").value;
+        var decipher = "";
+        for (i = 0; i < cipher.length; i += 2) {
+          var i1, i2, j1, j2;
+
+          i1 = (key.indexOf(cipher[i]) / 5) | 0;
+          j1 = key.indexOf(cipher[i]) % 5;
+
+          i2 = (key.indexOf(cipher[i + 1]) / 5) | 0;
+          j2 = key.indexOf(cipher[i + 1]) % 5;
+
+          //same row
+          if (i1 == i2) {
+            if (j2 - 1 < 0) {
+              decipher += key[i1 * 5 + ((j1 - 1) % 5)] + key[i2 * 5 + 4];
+            } else if (j1 - 1 < 0) {
+              decipher += key[i1 * 5 + 4] + key[i2 * 5 + ((j2 - 1) % 5)];
+            } else
+              decipher +=
+                key[i1 * 5 + ((j1 - 1) % 5)] + key[i2 * 5 + ((j2 - 1) % 5)];
+            //  cipher += key[ i5 * 5 + (j1 + 1 ) % 5] + key[ i2 * 5 + ( j2 + 1 ) % 5];
+            //cipher += key[6]+key[7];
+          }
+          //same colom
+          else if (j1 == j2) {
+            if (i1 - 1 < 0) {
+              decipher =
+                decipher + key[(4 % 5) * 5 + j1] + key[((i2 - 1) % 5) * 5 + j2];
+            } else if (i2 - 1 < 0) {
+              decipher =
+                decipher + key[((i1 - 1) % 5) * 5 + j1] + key[(4 % 5) * 5 + j2];
+            } else {
+              decipher =
+                decipher +
+                key[((i1 - 1) % 5) * 5 + j1] +
+                key[((i2 - 1) % 5) * 5 + j2];
+            }
+          }
+          //x hua
+          else decipher = decipher + key[i1 * 5 + j2] + key[i2 * 5 + j1];
+        }
+        document.getElementById("output5").innerHTML = decipher;
+      }
+
+      //end of fn3
+    </script>
+  </body>
+</html>
